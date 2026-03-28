@@ -14,7 +14,7 @@ Route::redirect('/', 'dashboard');
 
 
 // only authenticated and verified users can access this group
-route::middleware(["auth", "verified"])->group(function () {
+Route::middleware(["auth", "verified"])->group(function () {
     Route::get("/dashboard", fn() => Inertia::render("Dashboard"))
     ->name("dashboard");
 
