@@ -7,6 +7,7 @@ use App\Http\Controllers\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DashboardController;
 
 Route::redirect('/', 'dashboard');
 
@@ -15,11 +16,12 @@ Route::redirect('/', 'dashboard');
 
 // only authenticated and verified users can access this group
 Route::middleware(["auth", "verified"])->group(function () {
-    Route::get("/dashboard", fn() => Inertia::render("Dashboard"))
+    Route::get("/dashboard", [DashboardController::class, "index"])
     ->name("dashboard");
 
     Route::resource("project", ProjectController::class);
     Route::resource("task", TaskController::class);
+    Route::get("my-tasks", [TaskController::class, "myTasks"])->name("task.my-tasks");
     Route::resource("user", UserController::class);
  
    

@@ -81,11 +81,11 @@ class TaskController extends Controller
      * Display the specified resource.
      */
     public function show(Task $task)
-    {
-        return inertia('Task/Show', [
-            'task' => new TaskResource($task),
-        ]);
-    }
+{
+    return inertia('Task/Show', [
+        'task' => new TaskResource($task),
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -99,6 +99,7 @@ class TaskController extends Controller
             'task' => new TaskResource($task),
             'projects' => ProjectResource::collection($projects),
             'users' => UserResource::collection($users),
+            'success' => session('success'),
         ]);
     }
 
@@ -147,7 +148,7 @@ class TaskController extends Controller
         if (request("name")) {
             $query->where("name", "like", "%" . request("name") . "%");
         }
-        if (request("status")) {
+        if (request("status"))  {
             $query->where("status", request("status"));
         }
 
@@ -161,4 +162,6 @@ class TaskController extends Controller
             'success' => session('success'),
         ]);
     }
+
+    
 }
